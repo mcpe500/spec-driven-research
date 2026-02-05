@@ -18,11 +18,16 @@ RULES_FILE = ROOT / "prompts" / "SDR_RULES.txt"
 VALID_RUNNERS = [
     "none",
     "gemini",
+    "gemini-cli",
     "claude",
+    "claude-cli",
     "codex",
+    "codex-cli",
     "copilot",
     "kilo",
+    "kilo-cli",
     "opencode",
+    "opencode-cli",
     "antigravity",
 ]
 
@@ -138,7 +143,7 @@ def run_resolved_command(resolved: str, args: list[str], *, cwd: Path | None = N
 
 def run_gemini(project_path: Path, rules: str) -> None:
     """Run Gemini CLI."""
-    resolved = resolve_command("gemini")
+    resolved = resolve_command("gemini") or resolve_command("gemini-cli")
     if not resolved:
         die(
             "gemini CLI not found in PATH. Install Gemini CLI and set GEMINI_API_KEY. "
@@ -155,7 +160,7 @@ def run_gemini(project_path: Path, rules: str) -> None:
 
 def run_claude(project_path: Path, rules_file: Path) -> None:
     """Run Claude Code CLI."""
-    resolved = resolve_command("claude")
+    resolved = resolve_command("claude") or resolve_command("claude-cli")
     if not resolved:
         die(
             "Claude Code CLI not found in PATH. Install it and set ANTHROPIC_API_KEY. "
@@ -175,23 +180,35 @@ def run_claude(project_path: Path, rules_file: Path) -> None:
 
 def run_codex(project_path: Path, rules: str) -> None:
     """Run OpenAI Codex CLI."""
-    resolved = resolve_command("codex")
+    resolved = resolve_command("codex") or resolve_command("codex-cli")
     if not resolved:
         die("Codex CLI not found. Install it (npm i -g @openai/codex) and set OPENAI_API_KEY.")
-    
-    run_resolved_command(
-        resolved,
-        [
-            "exec",
-            "--cwd",
-            str(project_path),
-            "--system",
-            rules,
-            "--prompt",
-            SDR_PROMPT,
-        ],
-        cwd=project_path,
-    )
+
+    # Codex CLI interface varies by version. The version you're using expects:
+    #   codex exec [OPTIONS] [PROMPT] [COMMAND]
+    # So we pass the combined system+task prompt positionally.
+    combined_prompt = f"{rules}\n\n{SDR_PROMPT}"
+    run_resolved_command(resolved, ["exec", combined_prompt], cwd=project_path)
+
+
+def run_kilo_cli(project_path: Path, rules: str) -> None:
+    """Run Kilo Code CLI (if installed as kilo-cli)."""
+    resolved = resolve_command("kilo-cli")
+    if not resolved:
+        die("kilo-cli not found in PATH. Install Kilo Code CLI or use runner=kilo (stub).")
+
+    combined_prompt = f"{rules}\n\n{SDR_PROMPT}"
+    run_resolved_command(resolved, [combined_prompt], cwd=project_path)
+
+
+def run_opencode_cli(project_path: Path, rules: str) -> None:
+    """Run OpenCode CLI (if installed as opencode-cli)."""
+    resolved = resolve_command("opencode-cli")
+    if not resolved:
+        die("opencode-cli not found in PATH. Install OpenCode CLI or use runner=opencode (stub).")
+
+    combined_prompt = f"{rules}\n\n{SDR_PROMPT}"
+    run_resolved_command(resolved, [combined_prompt], cwd=project_path)
 
 
 def run_copilot(project_path: Path) -> None:
@@ -310,6 +327,14 @@ def main() -> None:
     project_path = Path(args.project_path)
     runner = args.runner.lower()
 
+    # Normalize CLI aliases to base runner names
+    alias_map = {
+        "gemini-cli": "gemini",
+        "claude-cli": "claude",
+        "codex-cli": "codex",
+    }
+    runner_norm = alias_map.get(runner, runner)
+
     # Validate project path
     if not project_path.exists() or not project_path.is_dir():
         die(f"Project path not found: {project_path}")
@@ -338,7 +363,7 @@ def main() -> None:
     rules = RULES_FILE.read_text(encoding="utf-8")
 
     # Handle runners
-    if runner == "none":
+    if runner_norm == "none":
         print("SDR_RUNNER=none -> skipping agent run (manual mode).")
         print(f"Edit artifacts manually in {project_path}, then run validator.")
         if RUN_LOGGER is not None:
@@ -354,22 +379,23 @@ def main() -> None:
     print(f"Project: {project_path}")
     print("-" * 40)
 
-    if runner == "gemini":
-        run_gemini(project_path, rules)
-    elif runner == "claude":
-        run_claude(project_path, RULES_FILE)
-    elif runner == "codex":
-        run_codex(project_path, rules)
-    elif runner == "copilot":
-        run_copilot(project_path)
-    elif runner == "kilo":
-        run_kilo(project_path)
-    elif runner == "opencode":
-        run_opencode(project_path)
-    elif runner == "antigravity":
-        run_antigravity(project_path)
-    else:
+    handlers = {
+        "gemini": lambda: run_gemini(project_path, rules),
+        "claude": lambda: run_claude(project_path, RULES_FILE),
+        "codex": lambda: run_codex(project_path, rules),
+        "copilot": lambda: run_copilot(project_path),
+        "kilo": lambda: run_kilo(project_path),
+        "kilo-cli": lambda: run_kilo_cli(project_path, rules),
+        "opencode": lambda: run_opencode(project_path),
+        "opencode-cli": lambda: run_opencode_cli(project_path, rules),
+        "antigravity": lambda: run_antigravity(project_path),
+    }
+
+    handler = handlers.get(runner_norm)
+    if handler is None:
         die(f"Unknown runner: {runner}. Valid: {', '.join(VALID_RUNNERS)}")
+
+    handler()
 
     if RUN_LOGGER is not None:
         RUN_LOGGER.append_block(

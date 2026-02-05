@@ -124,6 +124,9 @@ python scripts/run_agent.py projects/<slug> --runner <runner> --no-log
 Catatan:
 - `scripts/run_agent.py` adalah mode **cross-platform (Windows/Linux/Mac)**.
 - `scripts/run_agent.sh` masih ada sebagai opsi **Linux/Mac** kalau kamu memang pakai bash.
+- Alias runner yang bisa dipakai: `gemini`/`gemini-cli`, `claude`/`claude-cli`, `codex`/`codex-cli`.
+- `kilo` dan `opencode` adalah **stub** (tidak memanggil CLI).
+- `kilo-cli` dan `opencode-cli` akan mencoba menjalankan biner CLI asli (`kilo-cli` / `opencode-cli`) jika terpasang di PATH.
 
 ### 3.1 Runner yang tersedia
 
@@ -148,6 +151,7 @@ python scripts/run_agent.py projects/<slug> --runner gemini
 python scripts/run_agent.py projects/<slug> --runner claude
 # atau:
 python scripts/run_agent.py projects/<slug> --runner codex
+# atau alias -cli jika biner CLI kamu bernama demikian (mis. `codex-cli`)
 ```
 
 3. Jalankan validator:
