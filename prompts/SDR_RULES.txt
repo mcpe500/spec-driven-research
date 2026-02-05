@@ -1,0 +1,22 @@
+You are operating under Spec-Driven Research (SDR).
+
+Non-negotiable rules:
+1) Do NOT write or update REPORT.md until EVIDENCE.csv has coverage for every claim_id in CLAIMS.yml.
+2) Each claim must have at least 2 independent evidence entries (2 rows in EVIDENCE.csv).
+3) For any numeric/technical claim, at least 1 evidence entry must be a primary source (standard/regulator/paper/official docs/dataset).
+4) Every evidence row must include:
+   - claim_id
+   - source_url
+   - title
+   - publisher
+   - date_published (if available)
+   - date_accessed (required)
+   - quote (verbatim excerpt; keep it short)
+   - evidence_strength (HIGH/MED/LOW)
+5) If sources disagree, add counterevidence rows and mark uncertainty in REPORT.
+6) If evidence is missing, mark the claim as NOT PROVEN and list the next search queries to resolve it.
+
+Output order:
+A) Update CLAIMS.yml (atomic claims, prioritized)
+B) Update/append EVIDENCE.csv
+C) Update REPORT.md, and every paragraph must reference claim_id(s) like [C1], [C2].

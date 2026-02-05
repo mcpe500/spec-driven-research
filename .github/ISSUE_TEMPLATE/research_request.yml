@@ -1,0 +1,34 @@
+name: Research Request (SDR)
+description: Create a new Spec-Driven Research project
+title: "[SDR] <topic>"
+labels: ["sdr"]
+body:
+  - type: input
+    id: project_slug
+    attributes:
+      label: Project slug (folder name)
+      placeholder: contoh-topik
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision / Goal
+      description: What decision will this research support?
+      placeholder: "Should we ...?"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope (in/out)
+      placeholder: "In-scope: ... / Out-of-scope: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: rqs
+    attributes:
+      label: Research Questions
+      placeholder: "- RQ1: ...\n- RQ2: ..."
+    validations:
+      required: true

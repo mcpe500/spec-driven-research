@@ -1,0 +1,9 @@
+claims:
+  - id: C1
+    priority: P0
+    type: market
+    text: "Replace with an atomic claim."
+  - id: C2
+    priority: P1
+    type: technical
+    text: "Replace with an atomic claim."

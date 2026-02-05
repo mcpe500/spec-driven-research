@@ -1,0 +1,9 @@
+claims:
+  - id: C1
+    priority: P0
+    type: market
+    text: "Klaim contoh: Ukuran pasar X di Indonesia pada 2024 berada di rentang tertentu."
+  - id: C2
+    priority: P1
+    type: technical
+    text: "Klaim contoh: Metode pengukuran Y digunakan oleh institusi Z untuk metrik tersebut."
