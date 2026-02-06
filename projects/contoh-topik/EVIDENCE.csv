@@ -1,5 +1,0 @@
-claim_id,source_url,title,publisher,date_published,date_accessed,quote,evidence_strength,notes
-C1,https://example.com/source1,Sumber Contoh 1,Publisher A,2024-01-15,2026-02-06,"PLACEHOLDER QUOTE 1 - ganti dengan kutipan asli",LOW,Isi dengan sumber nyata
-C1,https://example.com/source2,Sumber Contoh 2,Publisher B,2024-03-20,2026-02-06,"PLACEHOLDER QUOTE 2 - ganti dengan kutipan asli",LOW,Isi dengan sumber nyata
-C2,https://example.com/source3,Sumber Contoh 3,Publisher C,2024-05-10,2026-02-06,"PLACEHOLDER QUOTE 1 - ganti dengan kutipan asli",LOW,Isi dengan sumber nyata
-C2,https://example.com/source4,Sumber Contoh 4,Publisher D,2024-07-01,2026-02-06,"PLACEHOLDER QUOTE 2 - ganti dengan kutipan asli",LOW,Isi dengan sumber nyata
