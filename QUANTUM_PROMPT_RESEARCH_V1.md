@@ -2,7 +2,7 @@
 
 ## Tujuan
 
-Mempublikasikan prompt template untuk riset bertema quantum (misalnya Deutsch–Jozsa, QFT, FFT) dengan pendekatan **spec-driven research**.
+Mempublikasikan prompt template untuk riset bertema quantum pada topik **<TOPIK>** dengan pendekatan **spec-driven research**.
 
 ## Instruksi utama (wajib)
 
@@ -25,14 +25,14 @@ spec/
   README.md
   handoff/
   results/
-    <topik-slug>/
-      <topik-slug>-v1.md
-      <topik-slug>-v2.md
+    <TOPIK-SLUG>/
+      <TOPIK-SLUG>-v1.md
+      <TOPIK-SLUG>-v2.md
       ...
       CHANGELOG.md
 ```
 
-Contoh `<topik-slug>`:
+Contoh `<TOPIK-SLUG>` (hanya contoh):
 - `deutsch-jozsa`
 - `qft`
 - `fft`
@@ -46,12 +46,12 @@ Contoh `<topik-slug>`:
   - boleh format poin/Q&A.
 - `spec/results/<topik-slug>/`:
   - laporan final naratif.
-  - wajib versioning per topik: `<topik-slug>-vN.md`.
+  - wajib versioning per topik: `<TOPIK-SLUG>-vN.md`.
 
 ## Aturan versioning
 
 - Versi baru selalu menjadi file baru:
-  - `<topik-slug>-v1.md`, `<topik-slug>-v2.md`, `<topik-slug>-v3.md`, dst.
+  - `<TOPIK-SLUG>-v1.md`, `<TOPIK-SLUG>-v2.md`, `<TOPIK-SLUG>-v3.md`, dst.
 - Versi lama tidak ditimpa.
 - Buat `CHANGELOG.md` per topik untuk merangkum perubahan antiversi.
 
