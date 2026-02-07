@@ -6,7 +6,7 @@ Mempublikasikan prompt template untuk riset bertema quantum pada topik **<TOPIK>
 
 ## Instruksi utama (wajib)
 
-- Tugas hanya **mengeksekusi prompt**.
+- Tugas anda adalah **mengeksekusi prompt**.
 - **PAHAMI mengeksekusi prompt ini**.
 - jika belum ada struktur maka buatlah struktur folder atau file output apa pun. Dokumen ini hanya template instruksi.
 
