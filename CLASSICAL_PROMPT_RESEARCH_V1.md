@@ -6,9 +6,9 @@ Mempublikasikan prompt template untuk riset bertopik **<TOPIK>** dengan fokus **
 
 ## Instruksi utama (wajib)
 
-- Tugas hanya **mempublikasikan prompt**.
-- **Jangan mengeksekusi prompt ini**: jangan melakukan riset topik, jangan browsing, jangan menulis report topik.
-- Jangan membuat struktur folder atau file output apa pun. Dokumen ini hanya template instruksi.
+- Tugas hanya **mengeksekusi prompt**.
+- **PAHAMI mengeksekusi prompt ini**.
+- jika belum ada struktur maka buatlah struktur folder atau file output apa pun. Dokumen ini hanya template instruksi.
 
 ---
 
